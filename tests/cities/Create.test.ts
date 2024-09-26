@@ -11,6 +11,7 @@ describe("Cities - Create", () => {
       .send({ name: "São Paulo" });
 
     expect(firstResponse.statusCode).toEqual(StatusCodes.CREATED);
+    expect(typeof firstResponse.body).toEqual("number");
   });
 
   it("Prevents the creation of a record with a very short name", async () => {
