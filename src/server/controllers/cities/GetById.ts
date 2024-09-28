@@ -14,17 +14,17 @@ export const getByIdValidation = validation((getSchema) => ({
   })),
 }));
 
-export const getById = async (req: Request<IParamProps>, res: Response) => {
+export const getById = async (req: Request<IParamProps>, res: Response): Promise<void> => {
 
   if (Number(req.params.id) === 99999) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
         default: "Record not found",
       },
     });
   }
 
-  return res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json({
     id: req.params.id,
     name: "Caxias do Sul",
   });
