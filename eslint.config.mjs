@@ -12,7 +12,13 @@ export default [
     rules: {
       "no-unused-vars": "off",
       "no-undef": "off",
-      "indent": ["error", 2],
+      "indent": [
+        "error", 
+        2,
+        {
+          "SwitchCase": 1,
+        }
+      ],
       "quotes": ["error", "double"],
       "semi": ["error", "always"],
       "@typescript-eslint/no-empty-interface": "off",
