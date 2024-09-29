@@ -30,5 +30,7 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
     });
   }
 
-  res.status(StatusCodes.NO_CONTENT).send();
+  if (!res.headersSent) {
+    res.status(StatusCodes.NO_CONTENT).send();
+  }
 };

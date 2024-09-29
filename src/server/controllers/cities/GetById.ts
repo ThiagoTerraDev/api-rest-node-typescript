@@ -24,8 +24,10 @@ export const getById = async (req: Request<IParamProps>, res: Response): Promise
     });
   }
 
-  res.status(StatusCodes.OK).json({
-    id: req.params.id,
-    name: "Caxias do Sul",
-  });
+  if (!res.headersSent) {
+    res.status(StatusCodes.OK).json({
+      id: req.params.id,
+      name: "Caxias do Sul",
+    });
+  }
 };
