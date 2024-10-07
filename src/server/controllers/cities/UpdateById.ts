@@ -3,6 +3,7 @@ import { validation } from "../../shared/middleware";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { ICity } from "../../database/models";
+import { CitiesProvider } from "../../database/providers/cities";
 
 
 interface IParamProps {
@@ -21,15 +22,29 @@ export const updateByIdValidation = validation((getSchema) => ({
 }));
 
 export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res: Response): Promise<void> => {
-  if (Number(req.params.id) === 99999) {
+  if (!req.params.id) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
-        default: "Record not found",
+        default: "Id is required",
       },
     });
+
+    return;
+  }
+
+  const result = await CitiesProvider.updateById(req.params.id, req.body);
+
+  if (result instanceof Error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      },
+    });
+
+    return;
   }
 
   if (!res.headersSent) {
-    res.status(StatusCodes.NO_CONTENT).send();
+    res.status(StatusCodes.NO_CONTENT).json(result);
   }
 };
