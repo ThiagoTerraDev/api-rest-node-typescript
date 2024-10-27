@@ -14,7 +14,7 @@ export const createValidation = validation((getSchema) => ({
   })),
 }));
 
-export const create = async (req: Request<{}, {}, ICity>, res: Response): Promise<void> => {
+export const create = async (req: Request<{}, {}, IBodyProps>, res: Response): Promise<void> => {
   const result = await CitiesProvider.create(req.body);
 
   if (result instanceof Error) {

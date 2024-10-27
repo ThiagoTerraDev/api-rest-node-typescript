@@ -38,7 +38,5 @@ export const deleteById = async (req: Request<IParamProps>, res: Response): Prom
     return;
   }
 
-  if (!res.headersSent) {
-    res.status(StatusCodes.NO_CONTENT).send();
-  }  
+  res.status(StatusCodes.NO_CONTENT).send();
 };

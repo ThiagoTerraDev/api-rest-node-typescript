@@ -13,7 +13,7 @@ interface IParamProps {
 interface IBodyProps extends Omit<ICity, "id"> {}
 
 export const updateByIdValidation = validation((getSchema) => ({
-  body : getSchema<IBodyProps>(yup.object().shape({
+  body: getSchema<IBodyProps>(yup.object().shape({
     name: yup.string().required().min(3),
   })),
   params: getSchema<IParamProps>(yup.object().shape({
@@ -23,7 +23,7 @@ export const updateByIdValidation = validation((getSchema) => ({
 
 export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res: Response): Promise<void> => {
   if (!req.params.id) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    res.status(StatusCodes.BAD_REQUEST).json({
       errors: {
         default: "Id is required",
       },
@@ -43,8 +43,6 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
 
     return;
   }
-
-  if (!res.headersSent) {
-    res.status(StatusCodes.NO_CONTENT).json(result);
-  }
+  
+  res.status(StatusCodes.NO_CONTENT).json(result);
 };

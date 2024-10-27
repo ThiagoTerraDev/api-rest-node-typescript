@@ -17,7 +17,7 @@ export const getByIdValidation = validation((getSchema) => ({
 
 export const getById = async (req: Request<IParamProps>, res: Response): Promise<void> => {
   if (!req.params.id) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    res.status(StatusCodes.BAD_REQUEST).json({
       errors: {
         default: "Id is required",
       },
@@ -29,16 +29,22 @@ export const getById = async (req: Request<IParamProps>, res: Response): Promise
   const result = await CitiesProvider.getById(req.params.id);
 
   if (result instanceof Error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: {
-        default: result.message,
-      },
-    });
+    if (result.message === "Record not found") {
+      res.status(StatusCodes.NOT_FOUND).json({
+        errors: {
+          default: result.message,
+        }
+      });
+    } else {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: {
+          default: result.message,
+        },
+      });
+    }
 
     return;
   }
 
-  if (!res.headersSent) {
-    res.status(StatusCodes.OK).json(result);
-  }
+  res.status(StatusCodes.OK).json(result);
 };
