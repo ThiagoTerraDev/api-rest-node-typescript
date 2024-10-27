@@ -27,7 +27,7 @@ describe("Cities - GetById", () => {
       .get("/cities/99999")
       .send();
 
-    expect(firstResponse.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
+    expect(firstResponse.statusCode).toEqual(StatusCodes.NOT_FOUND);
     expect(firstResponse.body).toHaveProperty("errors.default");
   });
 });
