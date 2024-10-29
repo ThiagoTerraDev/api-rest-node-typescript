@@ -5,7 +5,6 @@ import { testApp } from "../jest.setup";
 describe("Cities - GetById", () => {
 
   it("Fetches a record by id", async () => {
-    
     const firstResponse = await testApp
       .post("/cities")
       .send({ name: "Buenos Aires" });
@@ -20,9 +19,7 @@ describe("Cities - GetById", () => {
     expect(fetchedResponse.body).toHaveProperty("name");
   });
 
-
   it("Tries to fetch a record that does not exist", async () => {
-    
     const firstResponse = await testApp
       .get("/cities/99999")
       .send();

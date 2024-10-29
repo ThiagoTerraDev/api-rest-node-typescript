@@ -5,7 +5,6 @@ import { testApp } from "../jest.setup";
 describe("Cities - UpdateById", () => {
 
   it("Updates a record", async () => {
-
     const firstResponse = await testApp
       .post("/cities")
       .send({ name: "Caxias do Sul" });
@@ -20,7 +19,6 @@ describe("Cities - UpdateById", () => {
   });
 
   it("Tries to update a record that does not exist", async () => {
-
     const firstResponse = await testApp
       .put("/cities/99999")
       .send({ name: "Caxias" });

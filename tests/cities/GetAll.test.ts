@@ -2,11 +2,9 @@ import { StatusCodes } from "http-status-codes";
 import { testApp } from "../jest.setup";
 
 
-
 describe("Cities - GetAll", () => {
 
   it("Returns a list of all registered cities", async () => {
-
     const firstResponse = await testApp
       .post("/cities")
       .send({ name: "Belo Horizonte" });

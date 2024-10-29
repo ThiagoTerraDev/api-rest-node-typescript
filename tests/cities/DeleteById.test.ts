@@ -5,7 +5,6 @@ import { testApp } from "../jest.setup";
 describe("Cities - DeleteById", () => {
 
   it("Deletes a record", async () => {
-
     const firstResponse = await testApp
       .post("/cities")
       .send({ name: "Cabo Frio" });
@@ -20,7 +19,6 @@ describe("Cities - DeleteById", () => {
   });
 
   it("Tries to delete a record that does not exist", async () => {
-
     const firstResponse = await testApp
       .delete("/cities/99999")
       .send();

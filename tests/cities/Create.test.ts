@@ -5,7 +5,6 @@ import { testApp } from "../jest.setup";
 describe("Cities - Create", () => {
 
   it("Creates a record", async () => {
-
     const firstResponse = await testApp
       .post("/cities")
       .send({ name: "São Paulo" });
@@ -15,7 +14,6 @@ describe("Cities - Create", () => {
   });
 
   it("Prevents the creation of a record with a very short name", async () => {
-
     const firstResponse = await testApp
       .post("/cities")
       .send({ name: "Sã" });
