@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { CitiesController, MembersController } from "./../controllers"; 
+import { CitiesController, MembersController, UsersController } from "./../controllers"; 
 
 const router = Router();
 
@@ -19,6 +19,9 @@ router.post("/members", MembersController.createValidation, MembersController.cr
 router.get("/members/:id", MembersController.getByIdValidation, MembersController.getById);
 router.put("/members/:id", MembersController.updateByIdValidation, MembersController.updateById);
 router.delete("/members/:id", MembersController.deleteByIdValidation, MembersController.deleteById);
+
+router.post("/login", UsersController.signInValidation, UsersController.signIn);
+router.post("/register", UsersController.signUpValidation, UsersController.signUp);
 
 
 export { router };
