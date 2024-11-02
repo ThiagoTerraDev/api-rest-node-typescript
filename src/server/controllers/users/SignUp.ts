@@ -6,7 +6,6 @@ import { UsersProvider } from "../../database/providers/users";
 import { StatusCodes } from "http-status-codes";
 
 
-
 interface IBodyProps extends Omit<IUser, "id"> {}
 
 export const signUpValidation = validation((getSchema) => ({
