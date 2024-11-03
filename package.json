@@ -19,6 +19,7 @@
     "knex:seed": "knex --knexfile ./src/server/database/knex/Environment.ts seed:run"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "http-status-codes": "^2.3.0",
@@ -27,18 +28,19 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.13",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.2.5",
     "@eslint/js": "^9.7.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.0",
     "@types/http-status-codes": "^1.2.0",
+    "@types/jest": "^29.5.13",
     "@types/node": "^22.7.4",
     "@types/supertest": "^6.0.2",
     "@types/yup": "^0.32.0",
     "eslint": "9.x",
     "globals": "^15.8.0",
+    "jest": "^29.7.0",
     "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.16.1"

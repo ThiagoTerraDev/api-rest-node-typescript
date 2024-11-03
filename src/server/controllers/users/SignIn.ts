@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { Request, Response } from "express";
 import { UsersProvider } from "../../database/providers/users";
 import { StatusCodes } from "http-status-codes";
+import { PasswordCrypto } from "../../shared/services";
 
 
 interface IBodyProps extends Omit<IUser, "id" | "name"> {}
@@ -30,7 +31,9 @@ export const signIn = async (req: Request<{}, {}, IBodyProps> , res: Response): 
     return;
   }
 
-  if (password !== result.password) {
+  const passwordMatch = await PasswordCrypto.verifyPassword(password, result.password);
+
+  if (!passwordMatch) {
     res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
         default: "Invalid email or password",
