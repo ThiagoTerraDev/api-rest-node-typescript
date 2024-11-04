@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { Request, Response } from "express";
 import { UsersProvider } from "../../database/providers/users";
 import { StatusCodes } from "http-status-codes";
-import { PasswordCrypto } from "../../shared/services";
+import { JwtService, PasswordCrypto } from "../../shared/services";
 
 
 interface IBodyProps extends Omit<IUser, "id" | "name"> {}
@@ -19,9 +19,9 @@ export const signInValidation = validation((getSchema) => ({
 export const signIn = async (req: Request<{}, {}, IBodyProps> , res: Response): Promise<void> => {
   const { email, password } = req.body;
 
-  const result = await UsersProvider.getByEmail(email);
+  const user = await UsersProvider.getByEmail(email);
 
-  if (result instanceof Error) {
+  if (user instanceof Error) {
     res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
         default: "Invalid email or password",
@@ -31,7 +31,7 @@ export const signIn = async (req: Request<{}, {}, IBodyProps> , res: Response): 
     return;
   }
 
-  const passwordMatch = await PasswordCrypto.verifyPassword(password, result.password);
+  const passwordMatch = await PasswordCrypto.verifyPassword(password, user.password);
 
   if (!passwordMatch) {
     res.status(StatusCodes.UNAUTHORIZED).json({
@@ -40,8 +40,18 @@ export const signIn = async (req: Request<{}, {}, IBodyProps> , res: Response): 
       }
     });
   } else {
-    res.status(StatusCodes.OK).json({
-      accessToken: "test.test.test"
-    });
+    const accessToken = JwtService.sign({ uid: user.id });
+
+    if (accessToken === "JWT_SECRET_NOT_FOUND") {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: {
+          default: "Error generating access token",
+        }
+      });
+
+      return;
+    }
+
+    res.status(StatusCodes.OK).json({ accessToken });
   }
 };
