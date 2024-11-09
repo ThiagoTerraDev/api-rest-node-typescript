@@ -22,7 +22,7 @@ export const getAllValidation = validation((getSchema) => ({
 }));
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response): Promise<void> => {
-  const result = await CitiesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || "", Number(req.query.id));
+  const result = await CitiesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || "", Number(req.query.id) || 0);
   const count = await CitiesProvider.count(req.query.filter);
 
   if (result instanceof Error) {
