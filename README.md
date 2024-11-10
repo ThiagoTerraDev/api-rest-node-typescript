@@ -1,11 +1,13 @@
 # RESTful API Node.js, TypeScript
 
-This application is designed to manage users, members, and cities.
+This application is designed to manage users, members and cities.
 
 
 Deploy: https://api-rest-node-typescript-ctxy.onrender.com/
 
 Entities and endpoints: 
+
+
 ![Entities and endpoints](./assets/entities-endpoints-restful-typescript.png)
 
 
