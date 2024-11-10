@@ -1,6 +1,8 @@
 # RESTful API Node.js, TypeScript
 
-This application is designed to manage users, members and cities.
+This project is a RESTful API built with Node.js and TypeScript, aimed at managing users, members, and cities. It uses controllers to handle each entity and ensures data integrity through Yup validation middleware, which checks all inputs before they proceed to the main functionality. The API includes full CRUD operations for entities and provides secure user registration and login with password hashing via bcryptjs and authentication/authorization through JWTs.
+
+Database management is handled with Knex, utilizing SQLite in development and PostgreSQL in production (hosted on Render). Extensive testing was performed to ensure that all functionalities work correctly and reliably. This project also allowed me to consolidate concepts such as migrations, data modeling, seeds, and providers, enabling the development of a scalable, secure, and robust solution.
 
 
 Deploy: https://api-rest-node-typescript-ctxy.onrender.com/
